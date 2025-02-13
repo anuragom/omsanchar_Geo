@@ -1,6 +1,5 @@
 
 
-
 // import React, { useState } from "react";
 // import { Link } from "react-router-dom";
 // import {
@@ -56,61 +55,51 @@
 //   ];
 
 //   return (
-//     <div className="relative h-screen ">
-//       <nav
-//         className={`bg-gray-700 text-white h-full p-4 flex flex-col overflow-hidden transition-all duration-300 ${
-//           isCollapsed ? "w-16" : "w-64"
+//     <div
+//       className={`fixed top-0 left-0 h-screen bg-[#2e2e2e] text-white p-4 flex flex-col transition-all duration-300 ${
+//         isCollapsed ? "w-16" : "w-64"
+//       }`}
+//     >
+//       <h2
+//         className={`text-xl font-bold text-center border-b-2 border-[#219EBC] pb-2 transition-all duration-300 ${
+//           isCollapsed ? "opacity-0 invisible" : "opacity-100 visible"
 //         }`}
 //       >
-//         <h2
-//           className={`text-xl font-bold text-center border-b-2 border-[#219EBC] pb-2 transition-all duration-300 ${
-//             isCollapsed ? "opacity-0 invisible" : "opacity-100 visible"
-//           }`}
-//         >
-//           Geo Tracking
-//         </h2>
-//         <ul className="flex-1 mt-4 overflow-hidden">
-//           <style>
-//             {`
-//               .hide-scrollbar {
-//                 -ms-overflow-style: none; /* IE and Edge */
-//                 scrollbar-width: none; /* Firefox */
-//               }
-//               .hide-scrollbar::-webkit-scrollbar {
-//                 display: none; /* Chrome, Safari, and Edge */
-//               }
-//             `}
-//           </style>
-//           <div className="h-full overflow-y-auto hide-scrollbar space-y-2">
-//             {menuItems.map((item, index) => (
-//               <li
-//                 key={index}
-//                 className="flex items-center cursor-pointer bg-[#219EBC] hover:bg-white hover:text-black transition-all duration-300 mb-2 p-3 rounded-lg shadow-md"
-//               >
-//                 <Link to={item.path} className="flex items-center">
-//                   <div className={`${isCollapsed ? "text-xl" : "text-2xl"}`}>
-//                     {item.icon}
-//                   </div>
-//                   <span
-//                     className={`ml-4 text-sm font-medium transition-all ${
-//                       isCollapsed ? "opacity-0 invisible" : "opacity-100 visible"
-//                     }`}
-//                   >
-//                     {item.label}
-//                   </span>
-//                 </Link>
-//               </li>
-//             ))}
-//           </div>
-//         </ul>
-//       </nav>
-//       {/* Toggle Button */}
-//       <button
-//         onClick={toggleNavbar}
-//         className="absolute top-4 right-[13px] bg-[#219EBC] text-white p-2 rounded-full shadow-md hover:bg-white hover:text-black transition-all duration-300"
-//       >
-//         {isCollapsed ? <FaChevronRight /> : <FaChevronLeft />}
-//       </button>
+//         Geo Tracking
+//       </h2>
+//       <ul className="flex-1 mt-4 overflow-y-scroll hide-scrollbar">
+//         <style>
+//           {`
+//             .hide-scrollbar {
+//               -ms-overflow-style: none; /* IE and Edge */
+//               scrollbar-width: none; /* Firefox */
+//             }
+//             .hide-scrollbar::-webkit-scrollbar {
+//               display: none; /* Chrome, Safari, and Edge */
+//             }
+//           `}
+//         </style>
+//         <div className="space-y-2">
+//           {menuItems.map((item, index) => (
+//             <li
+//               key={index}
+//               className="flex items-center cursor-pointer bg-[#219EBC] hover:bg-white hover:text-black transition-all duration-300 mb-2 p-3 rounded-lg shadow-md"
+//             >
+//               <Link to={item.path} className="flex items-center">
+//                 <div className={`${isCollapsed ? "text-xl" : "text-2xl"}`}>{item.icon}</div>
+//                 <span
+//                   className={`ml-4 text-sm font-medium transition-all ${
+//                     isCollapsed ? "opacity-0 invisible" : "opacity-100 visible"
+//                   }`}
+//                 >
+//                   {item.label}
+//                 </span>
+//               </Link>
+//             </li>
+//           ))}
+//         </div>
+//       </ul>
+    
 //     </div>
 //   );
 // };
@@ -118,7 +107,7 @@
 // export default Navbar;
 
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   FaChevronLeft,
   FaChevronRight,
@@ -142,6 +131,7 @@ import {
 
 const Navbar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const location = useLocation(); // Get the current route
 
   const toggleNavbar = () => {
     setIsCollapsed(!isCollapsed);
@@ -197,32 +187,30 @@ const Navbar = () => {
           `}
         </style>
         <div className="space-y-2">
-          {menuItems.map((item, index) => (
-            <li
-              key={index}
-              className="flex items-center cursor-pointer bg-[#219EBC] hover:bg-white hover:text-black transition-all duration-300 mb-2 p-3 rounded-lg shadow-md"
-            >
-              <Link to={item.path} className="flex items-center">
-                <div className={`${isCollapsed ? "text-xl" : "text-2xl"}`}>{item.icon}</div>
-                <span
-                  className={`ml-4 text-sm font-medium transition-all ${
-                    isCollapsed ? "opacity-0 invisible" : "opacity-100 visible"
-                  }`}
-                >
-                  {item.label}
-                </span>
-              </Link>
-            </li>
-          ))}
+          {menuItems.map((item, index) => {
+            const isActive = location.pathname === item.path;
+            return (
+              <li
+                key={index}
+                className={`flex items-center cursor-pointer transition-all duration-300 mb-2 p-3 rounded-lg shadow-md ${
+                  isActive ? "bg-white text-black" : "bg-[#219EBC] hover:bg-white hover:text-black"
+                }`}
+              >
+                <Link to={item.path} className="flex items-center w-full">
+                  <div className={`${isCollapsed ? "text-xl" : "text-2xl"}`}>{item.icon}</div>
+                  <span
+                    className={`ml-4 text-sm font-medium transition-all ${
+                      isCollapsed ? "opacity-0 invisible" : "opacity-100 visible"
+                    }`}
+                  >
+                    {item.label}
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
         </div>
       </ul>
-      {/* Toggle Button */}
-      {/* <button
-        onClick={toggleNavbar}
-        className="absolute top-4 right-[-10px] bg-[#219EBC] text-white p-2 rounded-full shadow-md hover:bg-white hover:text-black transition-all duration-300"
-      >
-        {isCollapsed ? <FaChevronRight /> : <FaChevronLeft />}
-      </button> */}
     </div>
   );
 };

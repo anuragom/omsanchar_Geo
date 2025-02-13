@@ -1,9 +1,9 @@
 import React from 'react'
 
-const PinMaster = () => {
+const TrackMyVehical = () => {
   return (
-    <div>PinMaster</div>
+    <div>TrackMyVehical</div>
   )
 }
 
-export default PinMaster
+export default TrackMyVehical
