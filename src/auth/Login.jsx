@@ -69,7 +69,7 @@ const LoginPage = () => {
       }
     } catch (error) {
       console.error("Login Failed:", error);
-      toast.error("An error occurred. Please try again.");
+      toast.error("Invalid Credentials. Please Try Again.");
     } finally {
       setLoading(false);
     }

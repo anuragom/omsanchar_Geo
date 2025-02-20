@@ -12,20 +12,37 @@ const Geofencing = () => {
   const [km, setKm] = useState(""); 
   const [branch, setBranch] = useState(null); 
   const [devices, setDevices] = useState([]);   
-  const [filteredDevices, setFilteredDevices] = useState([]); // For filtered data
+  const [filteredDevices, setFilteredDevices] = useState([]); 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [rowsPerPage, setRowsPerPage] = useState(10); // Default rows per page
-  const [searchQuery, setSearchQuery] = useState(""); // Search input
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [searchQuery, setSearchQuery] = useState("");
   const token = getToken();
   const navigate = useNavigate();
+
+  // Handle Branch Code Input (Only numbers & max 10 digits)
+  const handleBranchCodeChange = (e) => {
+    const value = e.target.value;
+    if (/^\d{0,10}$/.test(value)) {
+      setBranchCode(value);
+    }
+  };
+
+  // Handle KM Input (Only numbers, max 4 digits, 2 decimal places)
+  const handleKmChange = (e) => {
+    const value = e.target.value;
+    if (/^\d{0,5}(\.\d{0,2})?$/.test(value)) {
+      setKm(value);
+    }
+  };
 
   const fetchData = async () => {
     setLoading(true);
     setError(false);
     try {
       const response = await axios.post(
-        "https://omhrms.omlogistics.co.in/omsanchar/geo_fencing",
+        // "https://omhrms.omlogistics.co.in/omsanchar/geo_fencing",
+        `${import.meta.env.VITE_BASE_URL}/omsanchar/geo_fencing`,
         { branchCode, km },
         {
           headers: {
@@ -37,7 +54,7 @@ const Geofencing = () => {
       const { branch, devices } = response.data;
       setBranch(branch);
       setDevices(devices);
-      setFilteredDevices(devices); // Initialize filtered devices
+      setFilteredDevices(devices);
     } catch (error) {
       console.error("Error fetching data:", error);
       setError(true);
@@ -71,7 +88,7 @@ const Geofencing = () => {
     },
     {
       name: "KM",
-      selector: (row) => row.KM,
+      selector: (row) => parseFloat(row.KM).toFixed(2),
       sortable: true,
     },
     {
@@ -88,6 +105,9 @@ const Geofencing = () => {
       name: "Challan Detail",
       selector: (row) => row.CHLN_DETAIL,
       sortable: true,
+      width:"150px",
+      wrap: true,
+
     },
     {
       name: "URL",
@@ -108,18 +128,16 @@ const Geofencing = () => {
     <div className="p-4 w-full max-w-[58rem] lg:max-w-[58rem] 2xl:max-w-[100rem] mx-auto">
       {/* Back Button */}
       <div className="flex">
-      <button
-        onClick={() => navigate("/dashboard")}
-        className="flex items-center mr-8 mb-4 text-[#2e2e2e] hover:text-bg-[#219EBC]"
-      >
-        <FaArrowLeft className="mr-2  text-#2e2e2e" />
-        Back 
-      </button>
+        <button
+          onClick={() => navigate("/dashboard")}
+          className="flex items-center mr-8 mb-4 text-[#2e2e2e] hover:text-bg-[#219EBC]"
+        >
+          <FaArrowLeft className="mr-2 text-#2e2e2e" />
+          Back 
+        </button>
 
-      <h1 className="text-2xl font-bold mb-4">Geo-Fencing Data</h1>
-
+        <h1 className="text-2xl font-bold mb-4">Geo-Fencing Data</h1>
       </div>
-      
 
       {/* Input Section */}
       <div className="mb-4 p-4 bg-gray-100 rounded-lg shadow-md">
@@ -129,11 +147,11 @@ const Geofencing = () => {
               Branch Code
             </label>
             <input
-              type="number"
+              type="text"
               value={branchCode}
-              onChange={(e) => setBranchCode(e.target.value)}
+              onChange={handleBranchCodeChange}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter Branch Code"
+              placeholder="Enter Branch Code "
             />
           </div>
           <div>
@@ -141,11 +159,11 @@ const Geofencing = () => {
               KM
             </label>
             <input
-              type="number"
+              type="text"
               value={km}
-              onChange={(e) => setKm(e.target.value)}
+              onChange={handleKmChange}
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter KM"
+              placeholder="Enter KM "
             />
           </div>
           <button
@@ -166,21 +184,19 @@ const Geofencing = () => {
       {/* Branch Information */}
       {!loading && branch && (
         <div className="mb-4 p-4 bg-gray-100 flex items-center justify-between rounded-lg shadow-md">
-        {/* Branch Name */}
-        <p className="text-lg ">
-          <strong>Branch Name:</strong> {branch.branchName}
-        </p>
-      
-        {/* Search Bar for Devices */}
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => handleDeviceSearch(e.target.value)}
-          className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-1/3"
-          placeholder="Search by Device or Lorry Type"
-        />
-      </div>
-      
+          <p className="text-lg ">
+            <strong>Branch Name:</strong> {branch.branchName}
+          </p>
+
+          {/* Search Bar for Devices */}
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => handleDeviceSearch(e.target.value)}
+            className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-1/3"
+            placeholder="Search by Device or Lorry Type"
+          />
+        </div>
       )}
 
       {/* Devices Table */}

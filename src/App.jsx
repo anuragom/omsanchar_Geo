@@ -17,6 +17,7 @@ import GeoFencing from "./pages/GeoFencing";
 import RouteMaster from "./pages/RouteMaster";
 import Login from "./auth/Login";
 import ProtectedRoute from "./Routes/ProtectedRoutes"; // Import your ProtectedRoute component
+import TrackMyVehical from "./pages/TrackMyVehical";
 
 // Layout Component
 const Layout = ({ children }) => {
@@ -100,6 +101,12 @@ const App = () => {
           path="/route-master"
           element={
             <ProtectedRoute element={<Layout><RouteMaster /></Layout>} />
+          }
+        />
+         <Route
+          path="/TrackMyVehical"
+          element={
+            <ProtectedRoute element={<Layout><TrackMyVehical /></Layout>} />
           }
         />
         

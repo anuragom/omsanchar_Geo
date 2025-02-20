@@ -140,7 +140,7 @@ const Navbar = () => {
   const menuItems = [
     { label: "In-Transit (For Your Branch)", path: "/in-transit", icon: <FaTruck /> },
     { label: "Geo Fencing (Nearby)", path: "/geo-fencing", icon: <FaMapMarkerAlt /> },
-    { label: "Track (My Vehicle)", path: "/track", icon: <FaSearch /> },
+    { label: "Track (My Vehicle)", path: "/TrackMyVehical", icon: <FaSearch /> },
     { label: "Route (Master)", path: "/route-master", icon: <FaRoute /> },
     { label: "Ideal Vehicle (with Empty)", path: "/ideal-vehicle", icon: <FaThermometerEmpty /> },
     { label: "Gate Entry (Auto From GPS)", path: "/gate-entry", icon: <FaSignInAlt /> },
