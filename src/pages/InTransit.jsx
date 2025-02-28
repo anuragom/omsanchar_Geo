@@ -148,85 +148,86 @@ const InTransit = () => {
   ];
 
   return (
-    <div className="p-4 w-[58rem] lg:w-[58rem] 2xl:w-[100rem]">
-      <h1 className="text-2xl font-bold mb-4">In Transit Vehicles</h1>
-
-      {/* Input Fields */}
-      <div className="mb-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div>
-          <label htmlFor="branchCode" className="block font-medium mb-1">
-            Branch Code
-          </label>
-          <input
-            id="branchCode"
-            type="text"
-            placeholder="Enter Branch Code"
-            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200 w-full"
-            value={branchCode}
-            onChange={handleBranchCodeChange}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="km" className="block font-medium mb-1">
-            KM
-          </label>
-          <input
-            id="km"
-            type="text"
-            placeholder="Enter KM"
-            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200 w-full"
-            value={km}
-            onChange={handleKmChange}
-          />
-        </div>
-
-        <button
-          onClick={fetchData}
-          className="p-2 bg-[#219EBC] text-white rounded-lg font-semibold hover:bg-[#2e2e2e] self-end"
-        >
-          Search
-        </button>
+    <div className="p-4 w-[35rem] sm:w-[58rem] lg:w-[58rem] 2xl:w-[100rem]">
+    <h1 className="text-2xl font-bold mb-4">In Transit Vehicles</h1>
+  
+    {/* Input Fields */}
+    <div className="mb-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div>
+        <label htmlFor="branchCode" className="block font-medium mb-1">
+          Branch Code
+        </label>
+        <input
+          id="branchCode"
+          type="text"
+          placeholder="Enter Branch Code"
+          className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200 w-full"
+          value={branchCode}
+          onChange={handleBranchCodeChange}
+        />
       </div>
-
-      {/* Loading and Error Messages */}
-      {loading && <div className="text-blue-500">Loading...</div>}
-      {error && <div className="text-red-500">No data found</div>}
-
-      {/* Search and Table */}
-      {!loading && !error && data.length > 0 && (
-        <>
-          <div className="mb-4">
-            <label htmlFor="search" className="block font-medium mb-1">
-              Search by Lorry Number
-            </label>
-            <input
-              id="search"
-              type="text"
-              placeholder="Enter Lorry Number"
-              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
-
-          <DataTable
-            columns={columns}
-            data={filteredData}
-            pagination
-            highlightOnHover
-            responsive
-            customStyles={{
-              headRow: {
-                style: {
-                  backgroundColor: "#f7fafc",
-                },
-              },
-            }}
-          />
-        </>
-      )}
+  
+      <div>
+        <label htmlFor="km" className="block font-medium mb-1">
+          KM
+        </label>
+        <input
+          id="km"
+          type="text"
+          placeholder="Enter KM"
+          className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200 w-full"
+          value={km}
+          onChange={handleKmChange}
+        />
+      </div>
+  
+      <button
+        onClick={fetchData}
+        className="p-2 bg-[#219EBC] text-white rounded-lg font-semibold hover:bg-[#2e2e2e] self-end"
+      >
+        Search
+      </button>
     </div>
+  
+    {/* Loading and Error Messages */}
+    {loading && <div className="text-blue-500">Loading...</div>}
+    {error && <div className="text-red-500">No data found</div>}
+  
+    {/* Search and Table */}
+    {!loading && !error && data.length > 0 && (
+      <>
+        <div className="mb-4">
+          <label htmlFor="search" className="block font-medium mb-1">
+            Search by Lorry Number
+          </label>
+          <input
+            id="search"
+            type="text"
+            placeholder="Enter Lorry Number"
+            className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+  
+        <DataTable
+          columns={columns}
+          data={filteredData}
+          pagination
+          highlightOnHover
+          responsive
+          customStyles={{
+            headRow: {
+              style: {
+                backgroundColor: "#f7fafc",
+              },
+            },
+          }}
+        />
+      </>
+    )}
+  </div>
+  
   );
 };
 
