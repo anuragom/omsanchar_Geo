@@ -44,7 +44,8 @@ const InTransit = () => {
   
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/omsanchar/inTransit_Vehical`, // Use Vite env variable
+        // `${import.meta.env.VITE_BASE_URL}/omsanchar/inTransit_Vehical`, 
+        "https://omhrms.omlogistics.co.in/omsanchar/inTransit_Vehical",
         { bcode: branchCode, km: km },
         {
           headers: {

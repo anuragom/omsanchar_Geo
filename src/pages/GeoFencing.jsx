@@ -41,8 +41,8 @@ const Geofencing = () => {
     setError(false);
     try {
       const response = await axios.post(
-        // "https://omhrms.omlogistics.co.in/omsanchar/geo_fencing",
-        `${import.meta.env.VITE_BASE_URL}/omsanchar/geo_fencing`,
+        "https://omhrms.omlogistics.co.in/omsanchar/geo_fencing",
+        // `${import.meta.env.VITE_BASE_URL}/omsanchar/geo_fencing`,
         { branchCode, km },
         {
           headers: {

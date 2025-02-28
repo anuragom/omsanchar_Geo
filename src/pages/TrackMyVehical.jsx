@@ -40,7 +40,8 @@ const TrackMyVehicle = () => {
     setError(false);
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/omsanchar/track_ideal_vehical`,
+        // `${import.meta.env.VITE_BASE_URL}/omsanchar/track_ideal_vehical`,
+        "https://omhrms.omlogistics.co.in/omsanchar/track_ideal_vehical",
         { emp_code: empCode },
         { headers: { Authorization: `${token}`, "Content-Type": "application/json" } }
       );
@@ -59,7 +60,8 @@ const TrackMyVehicle = () => {
     setError(false);
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/omsanchar/track_live_tracking`,
+        // `${import.meta.env.VITE_BASE_URL}/omsanchar/track_live_tracking`,
+        "https://omhrms.omlogistics.co.in/omsanchar/track_live_tracking",
         { emp_code: empCode },
         { headers: { Authorization: `${token}`, "Content-Type": "application/json" } }
       );
@@ -78,7 +80,8 @@ const TrackMyVehicle = () => {
     setError(false);
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/omsanchar/track_myVehical`,
+        // `${import.meta.env.VITE_BASE_URL}/omsanchar/track_myVehical`,
+        "https://omhrms.omlogistics.co.in/omsanchar/track_myVehical",
         { emp_code: empCode },
         { headers: { Authorization: `${token}`, "Content-Type": "application/json" } }
       );
