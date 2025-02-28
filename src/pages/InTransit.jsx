@@ -149,7 +149,7 @@ const InTransit = () => {
 
   return (
     <div className="p-4 w-[35rem] sm:w-[58rem] lg:w-[58rem] 2xl:w-[100rem]">
-    <h1 className="text-2xl font-bold mb-4">In Transit Vehicles</h1>
+    <h1 className="text-2xl font-bold mb-4">In Transit Vehicles.</h1>
   
     {/* Input Fields */}
     <div className="mb-4 grid grid-cols-1 md:grid-cols-3 gap-4">
