@@ -13,10 +13,8 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 5000,  // Set default port to 5000
-    allowedHosts: [
-      'trackinguat.omlogistics.co.in',  // Add your specific host here
-      // You can add other allowed hosts if needed
-    ],
+    port: 5000,
+    host: true,  // Allows Vite to listen on all network interfaces
+    allowedHosts: 'all',  // Temporarily allow all hosts
   },
 });
